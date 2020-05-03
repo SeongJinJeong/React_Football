@@ -31,6 +31,10 @@ const Top = (props) => {
   );
 };
 
+const mapStateToProps = ({ word }) => ({
+  word,
+});
+
 const mapDispatchToProps = { setKeyword };
 
-export default connect(null, mapDispatchToProps)(Top);
+export default connect(mapStateToProps, mapDispatchToProps)(Top);

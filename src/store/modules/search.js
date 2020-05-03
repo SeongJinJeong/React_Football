@@ -1,7 +1,7 @@
 export const KEYWORD = "search/KEYWORD";
 
 const inintalState = {
-  word: "livepool",
+  word: "liverpool",
 };
 
 export const setKeyword = (word) => {
@@ -11,10 +11,10 @@ export const setKeyword = (word) => {
 const Search = (state = inintalState, action) => {
   switch (action.type) {
     case KEYWORD:
-      return { ...state, word: action.word };
+      return { word: action.word };
 
     default:
-      return { ...state };
+      return { word: "Nothing" };
   }
 };
 
