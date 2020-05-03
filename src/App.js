@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Top from "./TopBar";
+import Teams from "./Teams";
 
 function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     _callApi()
-    .then(res=>{
-      setData(res);
-      setTimeout(()=>{
-        console.log(res)
-      },1000)
-      ;
-    })
-    .catch(err=> console.log(err));
+      .then((res) => {
+        setData(res);
+        setTimeout(() => {
+          console.log(res);
+        }, 1000);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const _callApi = async () => {
@@ -29,7 +30,7 @@ function App() {
       }
     );
     const data = response.json();
-    if(response.status !== 200) throw Error(data.message)
+    if (response.status !== 200) throw Error(data.message);
     return data;
   };
 
@@ -38,27 +39,36 @@ function App() {
   return (
     <>
       <Div>
-        {/* <RenderThis array={data}/> */}
+        <Top />
+        <Teams />
       </Div>
     </>
   );
 }
 
-const RenderThis = (props)=>{
-  console.log(Array.isArray(props.array))
+const RenderThis = (props) => {
+  console.log(Array.isArray(props.array));
   const data = props.array;
-  return data.map((value,index)=>{
-    return(
-    <><p>{value.name}</p><img src={value.logo} style={{
-      width:"50px",
-      height:"50px"
-    }}></img></>
-    )
-  })
-}
+  return data.map((value, index) => {
+    return (
+      <>
+        <p>{value.name}</p>
+        <img
+          src={value.logo}
+          style={{
+            width: "50px",
+            height: "50px",
+          }}
+        ></img>
+      </>
+    );
+  });
+};
 
 const Div = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
 `;
