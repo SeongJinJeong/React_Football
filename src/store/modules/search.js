@@ -8,7 +8,7 @@ export const setKeyword = (word) => {
   return { type: KEYWORD, word };
 };
 
-const Search = (state = inintalState, action) => {
+const Search = (state = "liverpool", action) => {
   switch (action.type) {
     case KEYWORD:
       return { word: action.word };

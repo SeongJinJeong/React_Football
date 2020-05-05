@@ -8,13 +8,12 @@ const Top = (props) => {
     event.persist();
     setWord(event.target.value);
   };
-  console.log(props);
   return (
     <div>
       <form id="Search">
         <input
           type="text"
-          placeholder="Search team"
+          placeholder="Search Team!!"
           onChange={_handleSearch}
           value={word}
         ></input>
@@ -31,9 +30,9 @@ const Top = (props) => {
   );
 };
 
-const mapStateToProps = ({ word }) => ({
-  word,
-});
+const mapStateToProps = (state) => {
+  return { word: state.Search.word };
+};
 
 const mapDispatchToProps = { setKeyword };
 
