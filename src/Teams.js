@@ -17,7 +17,7 @@ const Teams = (props) => {
           setErr(false);
           setData(res.api.teams);
           if (props.word && res.api.results === 0) {
-            setErrMsg("There is no data");
+            setErrMsg("There is no such teams!");
             setErr(true);
           }
         },
@@ -46,7 +46,7 @@ const Teams = (props) => {
   //     .catch((err) => console.log(err));
   //   console.log(Call.promiseIt);
 
-  return err ? <p>errMsg</p> : <WriteTemas teams={data} />;
+  return err ? <p>{errMsg}</p> : <WriteTemas teams={data} />;
 };
 
 const WriteTemas = (props) => {
