@@ -34,6 +34,10 @@ const Teams = (props) => {
       });
   }, [props.word]);
 
+  useEffect(() => {
+    Call._callTeam(40).then((res) => console.log(res));
+  }, []);
+
   //   Call.promiseIt(1)
   //     .then(
   //       (get) => console.log(get),
