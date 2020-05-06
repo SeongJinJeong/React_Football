@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { KEYWORD, setKeyword } from "./store/modules/search";
+import { setKeyword } from "./store/modules/search";
 import { connect } from "react-redux";
 
 const Top = (props) => {

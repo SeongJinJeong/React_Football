@@ -25,16 +25,15 @@ const Teams = (props) => {
           setErr(true);
           setData([]);
           setErrMsg(reject);
-          console.log(reject);
         }
       )
       .catch((err) => {
         console.log(err);
         setErr(true);
+        setErrMsg("Something went wrong");
       });
   }, [props.word]);
 
-  console.log(errMsg);
   //   Call.promiseIt(1)
   //     .then(
   //       (get) => console.log(get),
@@ -43,7 +42,7 @@ const Teams = (props) => {
   //     .catch((err) => console.log(err));
   //   console.log(Call.promiseIt);
 
-  return <p>{err ? errMsg : <WriteTemas teams={data} />}</p>;
+  return err ? <p>errMsg</p> : <WriteTemas teams={data} />;
 };
 
 const WriteTemas = (props) => {
@@ -70,11 +69,11 @@ const WriteTemas = (props) => {
 const TeamsDiv = styled.div`
   display: flex;
   justfiy-content: center;
+  align-items: center;
   flex-direction: column;
 `;
 
 const mapStateToProps = ({ Search }) => {
-  console.log(Search);
   return { word: Search.word || Search.err };
 };
 

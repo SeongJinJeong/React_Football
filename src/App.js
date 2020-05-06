@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Top from "./TopBar";
 import Teams from "./Teams";
-import callApi from "./fetchApi";
-
-const Call = callApi;
 
 function App() {
   return (
