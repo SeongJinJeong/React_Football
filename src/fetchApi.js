@@ -31,6 +31,17 @@ const callApi = {
     if (response.status !== 200) throw Error(data.message);
     return data;
   },
+  promiseIt: function (any) {
+    return new Promise((resolve, reject) => {
+      if (any === true) {
+        resolve("Fucking");
+      } else if (any === false) {
+        reject("Hell");
+      } else {
+        return Error("Any should be Boolean");
+      }
+    });
+  },
 };
 
 export default callApi;

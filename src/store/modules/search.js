@@ -14,7 +14,7 @@ const Search = (state = "liverpool", action) => {
       return { word: action.word };
 
     default:
-      return { word: "Nothing" };
+      return { word: false };
   }
 };
 

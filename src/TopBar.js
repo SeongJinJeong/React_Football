@@ -10,18 +10,20 @@ const Top = (props) => {
   };
   return (
     <div>
-      <form id="Search">
-        <input
-          type="text"
-          placeholder="Search Team!!"
-          onChange={_handleSearch}
-          value={word}
-        ></input>
-      </form>
+      <input
+        type="text"
+        placeholder="Search Team!!"
+        onChange={_handleSearch}
+        value={word}
+      ></input>
       <button
         onClick={() => {
-          props.setKeyword(word);
-          setWord("");
+          if (word.length <= 3) {
+            alert("Team name should be over 3 Spells!");
+          } else {
+            props.setKeyword(word);
+            setWord("");
+          }
         }}
       >
         Search
