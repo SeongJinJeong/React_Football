@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import Top from "./TopBar";
-import Teams from "./Teams";
+import Header from "./scripts/Header";
+import TeamRoute from "./routes/index";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Div>
-        <Top />
-        <Teams />
-      </Div>
+      <Router>
+        <Div>
+          <TeamRoute />
+        </Div>
+      </Router>
     </>
   );
 }

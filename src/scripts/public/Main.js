@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import callApi from "./fetchApi";
+import callApi from "../../fetchApi";
 import styled from "styled-components";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
 const Call = callApi;
 
-const Teams = (props) => {
+const Main = (props) => {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState();
@@ -38,14 +45,6 @@ const Teams = (props) => {
     Call._callTeam(40).then((res) => console.log(res));
   }, []);
 
-  //   Call.promiseIt(1)
-  //     .then(
-  //       (get) => console.log(get),
-  //       (get) => console.log(get)
-  //     )
-  //     .catch((err) => console.log(err));
-  //   console.log(Call.promiseIt);
-
   return err ? <p>{errMsg}</p> : <WriteTemas teams={data} />;
 };
 
@@ -54,17 +53,19 @@ const WriteTemas = (props) => {
   return teams.map((value, index) => {
     return (
       <>
-        <TeamsDiv key={index}>
-          <p>{"Name: " + value.name + " / ID: " + value.team_id}</p>
-          <img
-            src={value.logo}
-            alt={value.name}
-            style={{
-              width: "100px",
-              height: "100px",
-            }}
-          />
-        </TeamsDiv>
+        <Link to={`/teams/${value.team_id}`}>
+          <TeamsDiv key={index}>
+            <p>{"Name: " + value.name + " / ID: " + value.team_id}</p>
+            <img
+              src={value.logo}
+              alt={value.name}
+              style={{
+                width: "100px",
+                height: "100px",
+              }}
+            />
+          </TeamsDiv>
+        </Link>
       </>
     );
   });
@@ -81,4 +82,4 @@ const mapStateToProps = ({ Search }) => {
   return { word: Search.word || Search.err };
 };
 
-export default connect(mapStateToProps, null)(Teams);
+export default connect(mapStateToProps, null)(Main);
