@@ -6,9 +6,8 @@ import callApi from "../../fetchApi";
 
 const Call = callApi;
 
-const Search = () => {
+const Search = (props) => {
   let { word: teamName } = useParams();
-  console.log(teamName);
   return (
     <>
       <Top />

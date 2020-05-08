@@ -10,7 +10,7 @@ import Top from "../../scripts/public/TopBar";
 const TeamRoute = () => {
   return (
     <Switch>
-      <Route path="/teams/:id">
+      <Route path="/teams/:id" children={Teams}>
         <Teams />
       </Route>
       <Route path="/" exact={true}>

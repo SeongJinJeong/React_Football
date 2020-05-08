@@ -19,18 +19,19 @@ const Main = (props) => {
   const [loading, setLoading] = useState(false);
 
   const teamName = props.teamName || props.word;
-  console.log(teamName);
-
-  console.log(props);
 
   useEffect(() => {
     setLoading(true);
     Call._callTeamSearch(teamName)
       .then((res) => {
+        console.log(res);
         setErr(false);
         setData(res.api.teams);
         if (props.word && res.api.results === 0) {
           setErrMsg("There is no such teams!");
+          setErr(true);
+        } else if (props.word === undefined && res.api.results === 0) {
+          setErrMsg("Please enter something");
           setErr(true);
         }
         setLoading(false);
@@ -83,7 +84,6 @@ const TeamsDiv = styled.div`
 `;
 
 const mapStateToProps = ({ Search }) => {
-  console.log(Search.word || Search.err);
   return { word: Search.word || Search.err };
 };
 

@@ -10,7 +10,8 @@ const Top = (props) => {
     setWord(event.target.value);
   };
 
-  console.log(props);
+  const history = props.history;
+
   return (
     <div>
       <input
@@ -19,20 +20,19 @@ const Top = (props) => {
         onChange={_handleSearch}
         value={word}
       ></input>
-      <Link to={`/search/${word}`}>
-        <button
-          onClick={() => {
-            if (word.length <= 3) {
-              alert("Team name should be over 3 Spells!");
-            } else {
-              props.setKeyword(word);
-              setWord("");
-            }
-          }}
-        >
-          Search
-        </button>
-      </Link>
+      <button
+        onClick={() => {
+          if (word.length <= 3) {
+            alert("Team name should be over 3 Spells!");
+          } else {
+            props.setKeyword(word);
+            setWord("");
+            history.push(`/search/${word}`);
+          }
+        }}
+      >
+        Search
+      </button>
     </div>
   );
 };

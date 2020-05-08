@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Top from "../public/TopBar";
 import Main from "../public/Main";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import callApi from "../../fetchApi";
 
 const Call = callApi;
 
-const Teams = () => {
+const Teams = (props) => {
   let { id } = useParams();
+  const history = useHistory();
   const [data, setData] = useState([]);
+
   useEffect(() => {
     Call._callTeam(id).then((res) => setData(res.api.teams[0]));
   }, []);
   return (
     <>
-      <Top />
+      <Top history={history} />
       {data ? <RenderTeamInfo data={data} /> : <Main />}
     </>
   );
