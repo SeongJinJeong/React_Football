@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { setKeyword } from "../../store/modules/search";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Top = (props) => {
   const [word, setWord] = useState("");
@@ -10,7 +10,7 @@ const Top = (props) => {
     setWord(event.target.value);
   };
 
-  const history = props.history;
+  const history = useHistory();
 
   return (
     <div>

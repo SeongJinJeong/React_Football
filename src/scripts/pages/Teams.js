@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Top from "../public/TopBar";
 import Main from "../public/Main";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import callApi from "../../fetchApi";
 
 const Call = callApi;
 
 const Teams = (props) => {
   let { id } = useParams();
-  const history = useHistory();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -16,7 +15,7 @@ const Teams = (props) => {
   }, []);
   return (
     <>
-      <Top history={history} />
+      <Top />
       {data ? <RenderTeamInfo data={data} /> : <Main />}
     </>
   );
