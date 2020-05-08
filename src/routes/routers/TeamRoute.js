@@ -4,6 +4,8 @@ import { Switch, Route } from "react-router-dom";
 
 import Header from "../../scripts/Header";
 import Teams from "../../scripts/pages/Teams";
+import Search from "../../scripts/pages/Search";
+import Top from "../../scripts/public/TopBar";
 
 const TeamRoute = () => {
   return (
@@ -13,6 +15,9 @@ const TeamRoute = () => {
       </Route>
       <Route path="/" exact={true}>
         <Header />
+      </Route>
+      <Route path="/search/:word" children={Top}>
+        <Search />
       </Route>
     </Switch>
   );

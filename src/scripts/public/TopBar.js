@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { setKeyword } from "../../store/modules/search";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Top = (props) => {
   const [word, setWord] = useState("");
@@ -8,6 +9,8 @@ const Top = (props) => {
     event.persist();
     setWord(event.target.value);
   };
+
+  console.log(props);
   return (
     <div>
       <input
@@ -16,18 +19,20 @@ const Top = (props) => {
         onChange={_handleSearch}
         value={word}
       ></input>
-      <button
-        onClick={() => {
-          if (word.length <= 3) {
-            alert("Team name should be over 3 Spells!");
-          } else {
-            props.setKeyword(word);
-            setWord("");
-          }
-        }}
-      >
-        Search
-      </button>
+      <Link to={`/search/${word}`}>
+        <button
+          onClick={() => {
+            if (word.length <= 3) {
+              alert("Team name should be over 3 Spells!");
+            } else {
+              props.setKeyword(word);
+              setWord("");
+            }
+          }}
+        >
+          Search
+        </button>
+      </Link>
     </div>
   );
 };

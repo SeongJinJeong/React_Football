@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Top from "../public/TopBar";
+import Main from "../public/Main";
 import { useParams } from "react-router-dom";
 import callApi from "../../fetchApi";
 
@@ -14,7 +15,7 @@ const Teams = () => {
   return (
     <>
       <Top />
-      <RenderTeamInfo data={data} />
+      {data ? <RenderTeamInfo data={data} /> : <Main />}
     </>
   );
 };

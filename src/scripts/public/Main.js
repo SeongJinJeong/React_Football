@@ -16,36 +16,40 @@ const Main = (props) => {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const teamName = props.teamName || props.word;
+  console.log(teamName);
+
+  console.log(props);
 
   useEffect(() => {
-    Call._callTeamSearch(props.word)
-      .then(
-        (res) => {
-          setErr(false);
-          setData(res.api.teams);
-          if (props.word && res.api.results === 0) {
-            setErrMsg("There is no such teams!");
-            setErr(true);
-          }
-        },
-        (reject) => {
+    setLoading(true);
+    Call._callTeamSearch(teamName)
+      .then((res) => {
+        setErr(false);
+        setData(res.api.teams);
+        if (props.word && res.api.results === 0) {
+          setErrMsg("There is no such teams!");
           setErr(true);
-          setData([]);
-          setErrMsg(reject);
         }
-      )
+        setLoading(false);
+      })
       .catch((err) => {
         console.log(err);
         setErr(true);
         setErrMsg("Something went wrong");
+        setLoading(false);
       });
   }, [props.word]);
 
-  useEffect(() => {
-    Call._callTeam(40).then((res) => console.log(res));
-  }, []);
-
-  return err ? <p>{errMsg}</p> : <WriteTemas teams={data} />;
+  return err ? (
+    <p>{errMsg}</p>
+  ) : loading ? (
+    "Now Loading"
+  ) : (
+    <WriteTemas teams={data} />
+  );
 };
 
 const WriteTemas = (props) => {
@@ -79,6 +83,7 @@ const TeamsDiv = styled.div`
 `;
 
 const mapStateToProps = ({ Search }) => {
+  console.log(Search.word || Search.err);
   return { word: Search.word || Search.err };
 };
 
