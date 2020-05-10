@@ -29,18 +29,18 @@ const RenderFixtures = (props) => {
   const fixtures = props.fixtures;
   const futureFixtures = fixtures.filter((data) => {
     if (data.event_timestamp > Date.now() / 1000) return data;
-  });
+  }).reverse();
   console.log(futureFixtures)
   return futureFixtures.map((value, index) => {
     return (
       <Div>
         <Team away>
-          <img src={value.awayTeam.logo} />
+          <img src={value.awayTeam.logo} style={{width:"30%",height:"50%"}}/>
           <p style={{ fontWeight: "bold", fontSize:"30px" }}>{value.awayTeam.team_name}</p>
         </Team>
         {/* <p style={{fontWeight:"bold",fontSize:"50px",float:"unset"}}>VS</p> */}
         <Team>
-          <img src={value.homeTeam.logo} />
+          <img src={value.homeTeam.logo} style={{width:"30%",height:"50%"}}/>
           <p style={{ fontWeight: "bold", color:"white", fontSize:"30px" }}>{value.homeTeam.team_name}</p>
         </Team>
       </Div>
@@ -59,7 +59,8 @@ const Div = styled.div`
 `;
 
 const Team = styled.div`
-  width: 40%;
+  min-width: 40%;
+  max-width: 40%;
 
   display: flex;
   flex-direction: column;
@@ -69,6 +70,9 @@ const Team = styled.div`
   background-color : ${props=>props.away?"#f79071":"#342ead"};
 
   padding :20px;
+
+  min-height : 300px;
+  max-height : 300px;
 `;
 
 export default Fixtures;
