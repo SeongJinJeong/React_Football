@@ -24,7 +24,6 @@ const Main = (props) => {
     setLoading(true);
     Call._callTeamSearch(teamName)
       .then((res) => {
-        console.log(res);
         setErr(false);
         setData(res.api.teams);
         if (props.word && res.api.results === 0) {
