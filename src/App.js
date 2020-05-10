@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "./scripts/Header";
 import TeamRoute from "./routes/index";
 import { BrowserRouter as Router } from "react-router-dom";
+import callApi from "./fetchApi";
+
+const Call = callApi;
 
 function App() {
   return (
