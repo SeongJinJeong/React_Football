@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import TeamRoute from "./routes/index";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -10,6 +10,10 @@ import 'moment-timezone';
 const Call = callApi;
 
 function App() {
+  // useEffect(()=>{
+  //   Call._callLive()
+  //   .then(res=>console.log(res))
+  // },[])
   return (
     <>
       <Router>
