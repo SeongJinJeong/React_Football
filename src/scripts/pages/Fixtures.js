@@ -22,32 +22,60 @@ Array.prototype.division = function (n) {
 const Fixtures = (props) => {
   let { id: teamId } = useParams();
   const [fixtures, setFixtures] = useState([]);
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Call._callTeamFixture(teamId).then((res) => {
-      setFixtures(res.api.fixtures.reverse());
+      setFixtures(res.api.fixtures.reverse().division(10));
       setLoading(false);
     });
   }, []);
 
   console.log(fixtures);
+  console.log(page);
+
+  const timeFixtures = fixtures.filter((value) => {
+    return value.filter((fixt) => {
+      if (fixt.event_timestamp < Math.floor(Date.now() / 1000)) return fixt;
+    });
+  });
 
   return (
     <>
       <Top />
-      {loading ? "Now Loading" : <RenderFixtures fixtures={fixtures} page={page}/>}
-      {loading ? null:<MoreBox id="moreBtn" onClick={event=>{
-        handleMoreClick(event);
-        setPage(page+1);
-      }} />
-
-      }
+      {loading ? (
+        "Now Loading"
+      ) : (
+        <CheckFixture fixtures={timeFixtures} page={page} />
+      )}
+      {loading ? null : (
+        <MoreBox
+          id="moreBtn"
+          onClick={(event) => {
+            setPage(page + 1);
+            if (page - 1 === fixtures.length) {
+              handleMoreClick(event);
+            }
+          }}
+        >
+          More
+        </MoreBox>
+      )}
     </>
   );
 };
 
+const CheckFixture = (props) => {
+  const fixt = props.fixtures;
+  const curPage = props.page;
+  const getFixtures = [];
+  for (let i = 0; i < curPage; i++) {
+    getFixtures.push(<RenderFixtures fixtures={fixt[i]} />);
+  }
+  console.log(getFixtures);
+  return getFixtures;
+};
 
 const handleMoreClick = (e) => {
   console.log(e.target.id);
@@ -57,107 +85,96 @@ const handleMoreClick = (e) => {
 
 const RenderFixtures = (props) => {
   const fixtures = props.fixtures;
-  const dividedFixture = fixtures.division(10);
-  console.log(dividedFixture);
-  const timeFixtures = dividedFixture.filter((data) => {
-    return data.filter((fixt) => {
-      if (fixt.event_timestamp < Date.now() / 1000) return fixt;
-    });
-  });
+  console.log(fixtures);
+  // const dividedFixture = fixtures.division(10);
+  // console.log(dividedFixture);
   // .reverse();
 
-  console.log(props.page);
-  return timeFixtures.map((arr, ind) => {
-    if (ind > props.page) return;
-    return arr.map((value, index) => {
-      return (
-        <>
-          <Div>
-            <Team>
-              <img
-                src={value.homeTeam.logo}
-                style={{ maxWidth: "100px", maxHeight: "100px" }}
-              />
-              <p
-                style={{ fontWeight: "bold", color: "white", fontSize: "30px" }}
-              >
-                {value.homeTeam.team_name}
-              </p>
-            </Team>
-            <Team away>
-              <img
-                src={value.awayTeam.logo}
-                style={{ maxWidth: "100px", maxHeight: "100px" }}
-              />
-              <p style={{ fontWeight: "bold", fontSize: "30px" }}>
-                {value.awayTeam.team_name}
-              </p>
-            </Team>
-          </Div>
-          <Div style={{ margin: 0 }}>
-            <TeamDesc left>
-              <h2
-                style={{
-                  padding: "5px",
-                  border: "3px solid blue",
-                  borderRadius: "5px 5px 5px 5px",
-                }}
-              >
-                Home
-              </h2>
-              <h1>
-                {value.goalsHomeTeam !== null ? value.goalsHomeTeam : "NONE"}
-              </h1>
-            </TeamDesc>
-            <TeamDesc>
-              <h2
-                style={{
-                  padding: "5px",
-                  border: "3px solid red",
-                  borderRadius: "5px 5px 5px 5px",
-                }}
-              >
-                Away
-              </h2>
-              <h1>
-                {value.goalsAwayTeam !== null ? value.goalsAwayTeam : "NONE"}
-              </h1>
-            </TeamDesc>
-          </Div>
-          <Div info>
-            <MatchInfo>
-              <p style={{ margin: 0 }}>
-                <b>Event Date</b> :{" "}
-                <Moment
-                  interval={0}
-                  date={value.event_date}
-                  format="YYYY/MM/DD"
-                ></Moment>
-              </p>
-              <p style={{ margin: 0 }}>
-                <b>Status</b> : {value.status}
-              </p>
-              <p style={{ margin: 0 }}>
-                <b>Referee</b> :{" "}
-                {value.referee !== null ? value.referee : "NONE"}
-              </p>
-              <p />
-              <p style={{ margin: 0 }}>
-                <b>League</b> :{" "}
-                {value.league.name !== null ? value.league.name : "NONE"}
-              </p>
-              <p style={{ margin: 0 }}>
-                <b>Round</b> : {value.round !== null ? value.round : "NONE"}
-              </p>
-              <p />
-              <p style={{ margin: 0 }}>
-                <b>Venue</b> : {value.venue !== null ? value.venue : "NONE"}
-              </p>
-            </MatchInfo>
-          </Div>
-        </>
-      );
-    });
+  return fixtures.map((value, index) => {
+    return (
+      <>
+        <Div>
+          <Team>
+            <img
+              src={value.homeTeam.logo}
+              style={{ maxWidth: "100px", maxHeight: "100px" }}
+            />
+            <p style={{ fontWeight: "bold", color: "white", fontSize: "30px" }}>
+              {value.homeTeam.team_name}
+            </p>
+          </Team>
+          <Team away>
+            <img
+              src={value.awayTeam.logo}
+              style={{ maxWidth: "100px", maxHeight: "100px" }}
+            />
+            <p style={{ fontWeight: "bold", fontSize: "30px" }}>
+              {value.awayTeam.team_name}
+            </p>
+          </Team>
+        </Div>
+        <Div style={{ margin: 0 }}>
+          <TeamDesc left>
+            <h2
+              style={{
+                padding: "5px",
+                border: "3px solid blue",
+                borderRadius: "5px 5px 5px 5px",
+              }}
+            >
+              Home
+            </h2>
+            <h1>
+              {value.goalsHomeTeam !== null ? value.goalsHomeTeam : "NONE"}
+            </h1>
+          </TeamDesc>
+          <TeamDesc>
+            <h2
+              style={{
+                padding: "5px",
+                border: "3px solid red",
+                borderRadius: "5px 5px 5px 5px",
+              }}
+            >
+              Away
+            </h2>
+            <h1>
+              {value.goalsAwayTeam !== null ? value.goalsAwayTeam : "NONE"}
+            </h1>
+          </TeamDesc>
+        </Div>
+        <Div info>
+          <MatchInfo>
+            <p style={{ margin: 0 }}>
+              <b>Event Date</b> :{" "}
+              <Moment
+                interval={0}
+                date={value.event_date}
+                format="YYYY/MM/DD"
+              ></Moment>
+            </p>
+            <p style={{ margin: 0 }}>
+              <b>Status</b> : {value.status}
+            </p>
+            <p style={{ margin: 0 }}>
+              <b>Referee</b> : {value.referee !== null ? value.referee : "NONE"}
+            </p>
+            <p />
+            <p style={{ margin: 0 }}>
+              <b>League</b> :{" "}
+              {value.league.name !== null ? value.league.name : "NONE"}
+            </p>
+            <p style={{ margin: 0 }}>
+              <b>Round</b> : {value.round !== null ? value.round : "NONE"}
+            </p>
+            <p />
+            <p style={{ margin: 0 }}>
+              <b>Venue</b> : {value.venue !== null ? value.venue : "NONE"}
+            </p>
+          </MatchInfo>
+        </Div>
+      </>
+    );
   });
 };
 
@@ -228,7 +245,7 @@ const MoreBox = styled.div`
   font-weight: bold;
 
   &:hover {
-    background-color: black;
+    background-color: green;
     border: 2px solid green;
     color: white;
     cursor: pointer;
