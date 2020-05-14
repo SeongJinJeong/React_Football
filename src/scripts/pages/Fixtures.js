@@ -26,28 +26,32 @@ const Fixtures = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+    function sortArray(arr){
+      const sortedFixtures = [];
+      arr.filter((value) => {
+        return value.filter((fixt) => {
+          if (fixt.event_timestamp <= Math.floor(Date.now() / 1000)) {
+            sortedFixtures.push(fixt);
+          }
+        });
+      });
+      return sortedFixtures.division(10);
+    }
+
     Call._callTeamFixture(teamId).then((res) => {
-      setFixtures(res.api.fixtures.reverse().division(10));
+      setFixtures(sortArray(res.api.fixtures.reverse().division(10)));
       setLoading(false);
     });
   }, []);
-
-  console.log(fixtures);
-  console.log(page);
-
-  const timeFixtures = fixtures.filter((value) => {
-    return value.filter((fixt) => {
-      if (fixt.event_timestamp < Math.floor(Date.now() / 1000)) return fixt;
-    });
-  });
-
+  
   return (
     <>
       <Top />
       {loading ? (
         "Now Loading"
       ) : (
-        <CheckFixture fixtures={timeFixtures} page={page} />
+        <CheckFixture fixtures={fixtures} page={page} />
       )}
       {loading ? null : (
         <MoreBox
@@ -68,12 +72,12 @@ const Fixtures = (props) => {
 
 const CheckFixture = (props) => {
   const fixt = props.fixtures;
+  console.log(fixt);
   const curPage = props.page;
   const getFixtures = [];
   for (let i = 0; i < curPage; i++) {
     getFixtures.push(<RenderFixtures fixtures={fixt[i]} />);
   }
-  console.log(getFixtures);
   return getFixtures;
 };
 
