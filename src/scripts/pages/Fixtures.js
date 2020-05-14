@@ -44,6 +44,8 @@ const Fixtures = (props) => {
       setLoading(false);
     });
   }, []);
+
+  console.log(page);
   
   return (
     <>
@@ -53,7 +55,7 @@ const Fixtures = (props) => {
       ) : (
         <CheckFixture fixtures={fixtures} page={page} />
       )}
-      {loading ? null : (
+      {loading || page===fixtures.length? null : (
         <MoreBox
           id="moreBtn"
           onClick={(event) => {
@@ -89,7 +91,6 @@ const handleMoreClick = (e) => {
 
 const RenderFixtures = (props) => {
   const fixtures = props.fixtures;
-  console.log(fixtures);
   // const dividedFixture = fixtures.division(10);
   // console.log(dividedFixture);
   // .reverse();
