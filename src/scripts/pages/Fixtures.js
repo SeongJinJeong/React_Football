@@ -31,7 +31,7 @@ const Fixtures = (props) => {
       const sortedFixtures = [];
       arr.filter((value) => {
         return value.filter((fixt) => {
-          if (fixt.event_timestamp <= Math.floor(Date.now() / 1000)) {
+          if (fixt.event_timestamp <= Math.floor(Date.now() / 1000) && fixt.statusShort === "FT") {
             sortedFixtures.push(fixt);
           }
         });
