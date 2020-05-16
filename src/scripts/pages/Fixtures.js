@@ -26,12 +26,14 @@ const Fixtures = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
-    function sortArray(arr){
+    function sortArray(arr) {
       const sortedFixtures = [];
       arr.filter((value) => {
         return value.filter((fixt) => {
-          if (fixt.event_timestamp <= Math.floor(Date.now() / 1000) && fixt.statusShort === "FT") {
+          if (
+            fixt.event_timestamp <= Math.floor(Date.now() / 1000) &&
+            fixt.statusShort === "FT"
+          ) {
             sortedFixtures.push(fixt);
           }
         });
@@ -46,7 +48,7 @@ const Fixtures = (props) => {
   }, []);
 
   console.log(page);
-  
+
   return (
     <>
       <Top />
@@ -55,7 +57,7 @@ const Fixtures = (props) => {
       ) : (
         <CheckFixture fixtures={fixtures} page={page} />
       )}
-      {loading || page===fixtures.length? null : (
+      {loading || page === fixtures.length ? null : (
         <MoreBox
           id="moreBtn"
           onClick={(event) => {

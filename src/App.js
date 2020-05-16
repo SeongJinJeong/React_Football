@@ -10,10 +10,6 @@ import "moment-timezone";
 const Call = callApi;
 
 function App() {
-  // useEffect(()=>{
-  //   Call._callLive()
-  //   .then(res=>console.log(res))
-  // },[])
   return (
     <>
       <Router>
