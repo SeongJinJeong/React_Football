@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import Search from "./public/TopBar";
-import callApi from "../fetchApi";
+import Search from "../public/TopBar";
+import callApi from "../../fetchApi";
 import Moment from "react-moment";
 
 const Call = callApi;
 
-function Header() {
+function Main() {
   const [fixture, setFixture] = useState([]);
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
@@ -65,4 +65,4 @@ const RenderLive = (props) => {
   });
 };
 
-export default Header;
+export default Main;

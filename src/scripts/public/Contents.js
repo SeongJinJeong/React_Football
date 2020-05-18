@@ -12,7 +12,7 @@ import {
 
 const Call = callApi;
 
-const Main = (props) => {
+const Contents = (props) => {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState();
@@ -86,4 +86,4 @@ const mapStateToProps = ({ Search }) => {
   return { word: Search.word || Search.err };
 };
 
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, null)(Contents);
