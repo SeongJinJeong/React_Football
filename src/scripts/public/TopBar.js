@@ -3,15 +3,41 @@ import { setKeyword } from "../../store/modules/search";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
+import { Drawer, Icon } from "@material-ui/core";
+import { IconContext } from "react-icons";
+import { MdMenu } from "react-icons/md";
 
 const Top = (props) => {
   const [word, setWord] = useState("");
+  const [toggleDrawer, setToggleDrawer] = useState(false);
   const _handleSearch = (event) => {
     event.persist();
     setWord(event.target.value);
   };
 
   const history = useHistory();
+
+  const SideMenu = (props) => {
+    return (
+      <>
+      <IconContext.Provider value={{color:"blue",size:"3em",style:{
+        marginRight:"30px"
+      }}}>
+        <MdMenu onClick={()=>{
+        setToggleDrawer(true);
+      }}/>
+      </IconContext.Provider>
+      <Drawer open={props.toggleDrawer} anchor={"right"} onClose={()=>{
+        setToggleDrawer(false);
+      }}>
+        <p>Fuck</p>
+        <p>fees</p>
+        <p>teges</p>
+        <p>alet</p>
+      </Drawer>
+      </>
+    );
+  };
 
   return (
     <Div>
@@ -45,21 +71,22 @@ const Top = (props) => {
           Search
         </button>
       </SearchBox>
+      <SideMenu toggleDrawer={toggleDrawer} />
     </Div>
   );
 };
 
 const Div = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
   padding: 20px;
   margin-bottom: 20px;
 
-  width: 80%;
+  width: 100%;
 
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   border-radius: 15px;
 `;
 

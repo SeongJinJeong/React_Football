@@ -26,7 +26,7 @@ const Div = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 `;
 
 export default App;
