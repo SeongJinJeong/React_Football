@@ -3,9 +3,12 @@ import { setKeyword } from "../../store/modules/search";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
-import { Drawer, Icon } from "@material-ui/core";
+import { SwipeableDrawer, Icon } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { MdMenu } from "react-icons/md";
+import { IoIosFootball } from "react-icons/io";
+
+import {Drawer as MainDrawer} from "./MainDrawer";
 
 const Top = (props) => {
   const [word, setWord] = useState("");
@@ -20,21 +23,37 @@ const Top = (props) => {
   const SideMenu = (props) => {
     return (
       <>
-      <IconContext.Provider value={{color:"blue",size:"3em",style:{
-        marginRight:"30px"
-      }}}>
-        <MdMenu onClick={()=>{
-        setToggleDrawer(true);
-      }}/>
-      </IconContext.Provider>
-      <Drawer open={props.toggleDrawer} anchor={"right"} onClose={()=>{
-        setToggleDrawer(false);
-      }}>
-        <p>Fuck</p>
-        <p>fees</p>
-        <p>teges</p>
-        <p>alet</p>
-      </Drawer>
+        <IconContext.Provider
+          value={{
+            color: "blue",
+            size: "3em",
+            style: {
+              margin: "0px 40px",
+            },
+          }}
+        >
+          <MdMenu
+            onClick={() => {
+              setToggleDrawer(true);
+            }}
+          />
+        </IconContext.Provider>
+        <SwipeableDrawer
+          open={props.toggleDrawer}
+          anchor={"right"}
+          onClose={() => {
+            setToggleDrawer(false);
+          }}
+        >
+          <div
+            style={{
+              minWidth: "300px",
+              width: document.body.clientWidth * 0.3,
+            }}
+          >
+            <MainDrawer setToggleDrawer={setToggleDrawer}/>
+          </div>
+        </SwipeableDrawer>
       </>
     );
   };
@@ -45,14 +64,24 @@ const Top = (props) => {
         to={"/"}
         style={{
           height: "100%",
+          marginLeft : "20%",
+          textDecoration : "none",
         }}
       >
-        Home
+        <IconContext.Provider
+          value={{
+            color: "black",
+            size: "4em",
+          }}
+        >
+          <IoIosFootball />
+          <p style={{textAlign : "center", fontWeight:"bold", margin : 0, color:"black"}}>BETFOOT</p>
+        </IconContext.Provider>
       </Link>
       <SearchBox>
         <input
           type="text"
-          placeholder="Search Team!!"
+          placeholder="Search Teams!!"
           onChange={_handleSearch}
           value={word}
         ></input>
@@ -67,11 +96,16 @@ const Top = (props) => {
             }
           }}
           type="submit"
+          style={{
+            borderRadius: "20px",
+            backgroundColor : "green",
+            color: "white"
+          }}
         >
           Search
         </button>
+        <SideMenu toggleDrawer={toggleDrawer} />
       </SearchBox>
-      <SideMenu toggleDrawer={toggleDrawer} />
     </Div>
   );
 };
@@ -88,11 +122,13 @@ const Div = styled.div`
 
   border-bottom: 1px solid black;
   border-radius: 15px;
+
 `;
 
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
+
 `;
 
 const mapStateToProps = (state) => {
