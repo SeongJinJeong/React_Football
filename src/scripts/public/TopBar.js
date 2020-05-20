@@ -8,7 +8,7 @@ import { IconContext } from "react-icons";
 import { MdMenu } from "react-icons/md";
 import { IoIosFootball } from "react-icons/io";
 
-import {Drawer as MainDrawer} from "./MainDrawer";
+import { Drawer as MainDrawer } from "./MainDrawer";
 
 const Top = (props) => {
   const [word, setWord] = useState("");
@@ -51,7 +51,7 @@ const Top = (props) => {
               width: document.body.clientWidth * 0.3,
             }}
           >
-            <MainDrawer setToggleDrawer={setToggleDrawer}/>
+            <MainDrawer setToggleDrawer={setToggleDrawer} />
           </div>
         </SwipeableDrawer>
       </>
@@ -64,8 +64,8 @@ const Top = (props) => {
         to={"/"}
         style={{
           height: "100%",
-          marginLeft : "20%",
-          textDecoration : "none",
+          marginLeft: "20%",
+          textDecoration: "none",
         }}
       >
         <IconContext.Provider
@@ -75,7 +75,16 @@ const Top = (props) => {
           }}
         >
           <IoIosFootball />
-          <p style={{textAlign : "center", fontWeight:"bold", margin : 0, color:"black"}}>BETFOOT</p>
+          <p
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              margin: 0,
+              color: "black",
+            }}
+          >
+            BETFOOT
+          </p>
         </IconContext.Provider>
       </Link>
       <SearchBox>
@@ -98,8 +107,8 @@ const Top = (props) => {
           type="submit"
           style={{
             borderRadius: "20px",
-            backgroundColor : "green",
-            color: "white"
+            backgroundColor: "green",
+            color: "white",
           }}
         >
           Search
@@ -122,13 +131,11 @@ const Div = styled.div`
 
   border-bottom: 1px solid black;
   border-radius: 15px;
-
 `;
 
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
-
 `;
 
 const mapStateToProps = (state) => {

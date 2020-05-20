@@ -7,10 +7,14 @@ import { useHistory } from "react-router-dom";
 function Drawer(props) {
   return (
     <>
-      <IconContext.Provider value={{color:"black",size:"3em",style:{float:"right"}}}>
-        <MdClose onClick={()=>{
-          props.setToggleDrawer(false);
-        }}/>
+      <IconContext.Provider
+        value={{ color: "black", size: "3em", style: { float: "right" } }}
+      >
+        <MdClose
+          onClick={() => {
+            props.setToggleDrawer(false);
+          }}
+        />
       </IconContext.Provider>
       <Div>
         <p>Fuck</p>
