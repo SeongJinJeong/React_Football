@@ -27,9 +27,7 @@ const Top = (props) => {
           value={{
             color: "blue",
             size: "3em",
-            style: {
-              margin: "0px 40px",
-            },
+            style:{marginLeft:"5px"}
           }}
         >
           <MdMenu
@@ -136,6 +134,8 @@ const Div = styled.div`
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
+
+  margin-right : 10%;
 `;
 
 const mapStateToProps = (state) => {
