@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Top from "../public/TopBar";
-import Main from "../public/Contents";
 import { useParams,useHistory } from "react-router-dom";
 import callApi from "../../fetchApi";
 
@@ -18,7 +17,7 @@ const Teams = (props) => {
   return (
     <>
       <Top />
-      {data ? <RenderTeamInfo data={data} /> : <Main />}
+      {data ? <RenderTeamInfo data={data} /> : "There is no such Teams..."}
     </>
   );
 };

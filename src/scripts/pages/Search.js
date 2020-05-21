@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Top from "../public/TopBar";
-import Main from "../public/Contents";
+import Contents from "./SearchContents";
 import { useParams } from "react-router-dom";
 import callApi from "../../fetchApi";
 
@@ -11,7 +11,7 @@ const Search = (props) => {
   return (
     <>
       <Top />
-      <Main teamName={teamName} />
+      <Contents teamName={teamName} />
     </>
   );
 };

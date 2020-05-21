@@ -9,6 +9,7 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import { CircularProgress } from "@material-ui/core";
 
 const Call = callApi;
 
@@ -46,7 +47,7 @@ const Contents = (props) => {
   return err ? (
     <p>{errMsg}</p>
   ) : loading ? (
-    "Now Loading"
+    <CircularProgress />
   ) : (
     <WriteTemas teams={data} />
   );

@@ -2,13 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import Search from "../public/TopBar";
 import callApi from "../../fetchApi";
 import Moment from "react-moment";
+import { CircularProgress } from "@material-ui/core";
 
 const Call = callApi;
 
 function Main() {
   const [fixture, setFixture] = useState([]);
   const [status, setStatus] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState("Loading");
 
   useEffect(() => {
     function _setFixt(arr) {
@@ -26,7 +27,7 @@ function Main() {
         if (res.api.results !== 0) {
           console.log(res);
           const liveData = Object.values(res.api.fixtures);
-          console.log(liveData);
+          console.log(Array.isArray(liveData));
           const what = _setFixt(liveData);
           setFixture(what);
           setStatus(true);
@@ -42,7 +43,7 @@ function Main() {
   return (
     <>
       <Search />
-      {status ? <RenderLive data={fixture} /> : <p>{msg}</p>}
+      {status ? <RenderLive data={fixture} /> : <CircularProgress />}
     </>
   );
 }

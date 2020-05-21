@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
+import { CircularProgress } from "@material-ui/core";
+
 
 import Top from "../public/TopBar";
 import { useParams } from "react-router-dom";
@@ -53,7 +55,7 @@ const Fixtures = (props) => {
     <>
       <Top />
       {loading ? (
-        "Now Loading"
+        <CircularProgress />
       ) : (
         <CheckFixture fixtures={fixtures} page={page} />
       )}
