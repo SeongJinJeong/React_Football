@@ -27,7 +27,7 @@ const Top = (props) => {
           value={{
             color: "blue",
             size: "3em",
-            style:{marginLeft:"5px"}
+            style: { marginLeft: "5px", minWidth:"3em" },
           }}
         >
           <MdMenu
@@ -62,7 +62,6 @@ const Top = (props) => {
         to={"/"}
         style={{
           height: "100%",
-          marginLeft: "20%",
           textDecoration: "none",
         }}
       >
@@ -85,41 +84,46 @@ const Top = (props) => {
           </p>
         </IconContext.Provider>
       </Link>
-      <SearchBox>
-        <input
-          type="text"
-          placeholder="Search Teams!!"
-          onChange={_handleSearch}
-          value={word}
-        ></input>
-        <button
-          onClick={() => {
-            if (word.length <= 3) {
-              alert("Team name should be over 3 Spells!");
-            } else {
-              props.setKeyword(word);
-              setWord("");
-              history.push(`/search/${word}`);
-            }
-          }}
-          type="submit"
-          style={{
-            borderRadius: "20px",
-            backgroundColor: "green",
-            color: "white",
-          }}
-        >
-          Search
-        </button>
+      <SideBox>
+        <SearchBox>
+          <input
+            type="text"
+            placeholder="Search Teams!!"
+            onChange={_handleSearch}
+            value={word}
+            style={{
+              width:"200px"
+            }}
+          ></input>
+          <button
+            onClick={() => {
+              if (word.length <= 3) {
+                alert("Team name should be over 3 Spells!");
+              } else {
+                props.setKeyword(word);
+                setWord("");
+                history.push(`/search/${word}`);
+              }
+            }}
+            type="submit"
+            style={{
+              borderRadius: "20px",
+              backgroundColor: "green",
+              color: "white",
+            }}
+          >
+            Search
+          </button>
+        </SearchBox>
         <SideMenu toggleDrawer={toggleDrawer} />
-      </SearchBox>
+      </SideBox>
     </Div>
   );
 };
 
 const Div = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
   padding: 20px;
@@ -131,11 +135,15 @@ const Div = styled.div`
   border-radius: 15px;
 `;
 
+const SideBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+`;
+
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
-
-  margin-right : 10%;
 `;
 
 const mapStateToProps = (state) => {
