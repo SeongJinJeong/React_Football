@@ -35,7 +35,7 @@ const RenderTeamInfo = (props) => {
       <p>Founded Date : {teamData.founded}</p>
       <p>Venue Name : {teamData.venue_name}</p>
       <p>Venue Address : {teamData.venue_address}</p>
-      <button onClick={()=>history.push(`/fixtures/${teamData.team_id}`)}>Watch Teams</button>
+      <button onClick={()=>history.push(`/fixtures/${teamData.team_id}`)}>Show Matches</button>
     </>
   );
 };
