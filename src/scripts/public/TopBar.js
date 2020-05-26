@@ -3,7 +3,7 @@ import { setKeyword } from "../../store/modules/search";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
-import { SwipeableDrawer, Icon } from "@material-ui/core";
+import { Drawer, Icon } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { MdMenu } from "react-icons/md";
 import { IoIosFootball } from "react-icons/io";
@@ -36,7 +36,7 @@ const Top = (props) => {
             }}
           />
         </IconContext.Provider>
-        <SwipeableDrawer
+        <Drawer
           open={props.toggleDrawer}
           anchor={"right"}
           onClose={() => {
@@ -51,7 +51,7 @@ const Top = (props) => {
           >
             <MainDrawer setToggleDrawer={setToggleDrawer} />
           </div>
-        </SwipeableDrawer>
+        </Drawer>
       </>
     );
   };
@@ -92,7 +92,9 @@ const Top = (props) => {
             onChange={_handleSearch}
             value={word}
             style={{
-              width:"200px"
+              width:"100%",
+              maxWidth:"200px",
+              minWidth:"80px"
             }}
           ></input>
           <button
@@ -114,8 +116,8 @@ const Top = (props) => {
           >
             Search
           </button>
-        </SearchBox>
         <SideMenu toggleDrawer={toggleDrawer} />
+        </SearchBox>
       </SideBox>
     </Div>
   );
@@ -132,7 +134,6 @@ const Div = styled.div`
   width: 100%;
 
   border-bottom: 1px solid black;
-  border-radius: 15px;
 `;
 
 const SideBox = styled.div`
@@ -144,6 +145,8 @@ const SideBox = styled.div`
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
+
+  width: 100%;
 `;
 
 const mapStateToProps = (state) => {

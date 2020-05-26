@@ -12,6 +12,9 @@ function Drawer(props) {
           width: "100%",
           borderBottom: "1px solid black",
           marginBottom: "10px",
+          display: "flex",
+          flexDirection: "row",
+          // justifyContent: "center"
         }}
       >
         <IconContext.Provider value={{ color: "black", size: "3em" }}>
@@ -21,10 +24,38 @@ function Drawer(props) {
             }}
           />
         </IconContext.Provider>
+        <div
+          style={{
+            position: "absolute",
+            right: 0,
+            display:"flex",
+            flexDirection:"row"
+          }}
+        >
+          <Anchor>
+            <Link
+              to={`/login`}
+              style={{ textDecoration: "none", color: "green" , fontSize:"15px" , marginRight: "5px" , fontWeight: 600}}
+            >
+              LOGIN
+            </Link>
+          </Anchor>
+          <Anchor>
+            <Link
+              to={`/register`}
+              style={{ textDecoration: "none", color: "blue" , fontSize:"15px" , marginRight: "5px" , fontWeight: 600}}
+            >
+              REGISTER
+            </Link>
+          </Anchor>
+        </div>
       </div>
       <Div>
         <Anchor>
-          <Link to={`/fixtures/40`} style={{ textDecoration: "none", color: "black" }} >
+          <Link
+            to={`/fixtures/40`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
             LIVE
           </Link>
         </Anchor>
@@ -70,8 +101,8 @@ const Anchor = styled.p`
   font-weight: bold;
   color: black;
 
-  &:hover{
-    color : green;
+  &:hover {
+    color: green;
   }
 `;
 

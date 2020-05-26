@@ -11,41 +11,40 @@ const Call = callApi;
 function Main() {
   const [fixture, setFixture] = useState([]);
   const [status, setStatus] = useState(false);
+  const [loading, setLoading] = useState(true)
   const [msg, setMsg] = useState("Loading");
 
   useEffect(() => {
-    function _setFixt(arr) {
-      const fixtures = [];
-      arr.map((value, index) => {
-        Call._callFixture(value.fixture_id).then((res) => {
-          fixtures.push(res.api.fixtures[0]);
-        });
-      });
-      return fixtures;
-    }
-
     Call._callLive()
       .then((res) => {
         if (res.api.results !== 0) {
           console.log(res);
           const liveData = Object.values(res.api.fixtures);
           console.log(liveData);
-          // const what = _setFixt(liveData);
           setFixture(liveData);
           setStatus(true);
+          setLoading(false);
         } else {
           setMsg("There is no match on Live");
           setStatus(false);
+          setLoading(false);
         }
       })
       .catch((err) => console.log(err));
   }, []);
 
+  const HandleNoMatch = (props) =>{
+    if(props.status == false) return props.msg;
+    else{
+      return <CircularProgress />
+    }
+  }
+
   console.log();
   return (
     <>
       <Search />
-      {status ? <RenderLive data={fixture} /> : <CircularProgress />}
+      {status == true && loading == false ? <RenderLive data={fixture} /> : <HandleNoMatch status={status} msg={msg}/>}
     </>
   );
 }

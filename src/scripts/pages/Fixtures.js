@@ -82,7 +82,7 @@ const CheckFixture = (props) => {
   const curPage = props.page;
   const getFixtures = [];
   for (let i = 0; i < curPage; i++) {
-    getFixtures.push(<RenderFixtures fixtures={fixt[i]} />);
+    getFixtures.push(<RenderFixtures fixtures={fixt[i]} key={i}/>);
   }
   return getFixtures;
 };
@@ -102,7 +102,7 @@ const RenderFixtures = (props) => {
   return fixtures.map((value, index) => {
     return (
       <>
-        <Div>
+        <Div key={index}>
           <Team>
             <img
               src={value.homeTeam.logo}
