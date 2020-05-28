@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Moment from "react-moment";
 import { CircularProgress } from "@material-ui/core";
 
-
 import Top from "../public/TopBar";
 import { useParams } from "react-router-dom";
 import callApi from "../../fetchApi";
@@ -54,24 +53,26 @@ const Fixtures = (props) => {
   return (
     <>
       <Top />
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <CheckFixture fixtures={fixtures} page={page} />
-      )}
-      {loading || page === fixtures.length ? null : (
-        <MoreBox
-          id="moreBtn"
-          onClick={(event) => {
-            setPage(page + 1);
-            if (page - 1 === fixtures.length) {
-              handleMoreClick(event);
-            }
-          }}
-        >
-          More
-        </MoreBox>
-      )}
+      <AlignCenter>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <CheckFixture fixtures={fixtures} page={page} />
+        )}
+        {loading || page === fixtures.length ? null : (
+          <MoreBox
+            id="moreBtn"
+            onClick={(event) => {
+              setPage(page + 1);
+              if (page - 1 === fixtures.length) {
+                handleMoreClick(event);
+              }
+            }}
+          >
+            More
+          </MoreBox>
+        )}
+      </AlignCenter>
     </>
   );
 };
@@ -82,7 +83,7 @@ const CheckFixture = (props) => {
   const curPage = props.page;
   const getFixtures = [];
   for (let i = 0; i < curPage; i++) {
-    getFixtures.push(<RenderFixtures fixtures={fixt[i]} key={i}/>);
+    getFixtures.push(<RenderFixtures fixtures={fixt[i]} key={i} />);
   }
   return getFixtures;
 };
@@ -259,6 +260,13 @@ const MoreBox = styled.div`
     color: white;
     cursor: pointer;
   }
+`;
+
+const AlignCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction : column;
 `;
 
 export default Fixtures;

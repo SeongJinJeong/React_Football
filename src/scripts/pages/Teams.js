@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import styled from "styled-components";
+
 import Top from "../public/TopBar";
-import { useParams,useHistory } from "react-router-dom";
 import callApi from "../../fetchApi";
 
 const Call = callApi;
@@ -8,7 +10,7 @@ const Call = callApi;
 const Teams = (props) => {
   let { id } = useParams();
   const [data, setData] = useState([]);
-  
+
   const history = useHistory();
 
   useEffect(() => {
@@ -17,7 +19,9 @@ const Teams = (props) => {
   return (
     <>
       <Top />
-      {data ? <RenderTeamInfo data={data} /> : "There is no such Teams..."}
+      <AlignCenter>
+        {data ? <RenderTeamInfo data={data} /> : "There is no such Teams..."}
+      </AlignCenter>
     </>
   );
 };
@@ -25,7 +29,7 @@ const Teams = (props) => {
 const RenderTeamInfo = (props) => {
   const history = useHistory();
   const teamData = props.data;
-  
+
   return (
     <>
       <img src={teamData.logo} alt={teamData.name} />
@@ -35,9 +39,18 @@ const RenderTeamInfo = (props) => {
       <p>Founded Date : {teamData.founded}</p>
       <p>Venue Name : {teamData.venue_name}</p>
       <p>Venue Address : {teamData.venue_address}</p>
-      <button onClick={()=>history.push(`/fixtures/${teamData.team_id}`)}>Show Matches</button>
+      <button onClick={() => history.push(`/fixtures/${teamData.team_id}`)}>
+        Show Matches
+      </button>
     </>
   );
 };
+
+const AlignCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 export default Teams;

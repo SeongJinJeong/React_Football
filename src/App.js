@@ -23,10 +23,13 @@ function App() {
 
 const Div = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
   flex-direction: column;
   flex-wrap: nowrap;
+
+  height: 100%;
+  width : 100%;
 `;
 
 export default App;

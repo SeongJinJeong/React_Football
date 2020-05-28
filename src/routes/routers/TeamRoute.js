@@ -8,6 +8,7 @@ import Top from "../../scripts/public/TopBar";
 import Teams from "../../scripts/pages/Teams";
 import Search from "../../scripts/pages/Search";
 import Fixtures from "../../scripts/pages/Fixtures";
+import Login from "../../scripts/pages/login/Login";
 
 const TeamRoute = () => {
   return (
@@ -23,6 +24,9 @@ const TeamRoute = () => {
       </Route>
       <Route path="/fixtures/:id" children={Fixtures}>
         <Fixtures />
+      </Route>
+      <Route path="/login" children={Login}>
+        <Login />
       </Route>
     </Switch>
   );

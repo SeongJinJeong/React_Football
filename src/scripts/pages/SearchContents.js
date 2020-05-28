@@ -45,11 +45,11 @@ const Contents = (props) => {
   }, [props.word]);
 
   return err ? (
-    <p>{errMsg}</p>
+    <AlignCenter><p>{errMsg}</p></AlignCenter>
   ) : loading ? (
-    <CircularProgress />
+    <AlignCenter><CircularProgress /></AlignCenter>
   ) : (
-    <WriteTemas teams={data} />
+    <AlignCenter><WriteTemas teams={data} /></AlignCenter>
   );
 };
 
@@ -81,6 +81,13 @@ const TeamsDiv = styled.div`
   justfiy-content: center;
   align-items: center;
   flex-direction: column;
+`;
+
+const AlignCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction : column;
 `;
 
 const mapStateToProps = ({ Search }) => {

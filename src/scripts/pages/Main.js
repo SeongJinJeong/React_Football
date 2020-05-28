@@ -3,7 +3,7 @@ import Moment from "react-moment";
 import { CircularProgress } from "@material-ui/core";
 import styled from "styled-components";
 
-import Search from "../public/TopBar";
+import Top from "../public/TopBar";
 import callApi from "../../fetchApi";
 
 const Call = callApi;
@@ -11,7 +11,7 @@ const Call = callApi;
 function Main() {
   const [fixture, setFixture] = useState([]);
   const [status, setStatus] = useState(false);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState("Loading");
 
   useEffect(() => {
@@ -33,18 +33,24 @@ function Main() {
       .catch((err) => console.log(err));
   }, []);
 
-  const HandleNoMatch = (props) =>{
-    if(props.status == false) return props.msg;
-    else{
-      return <CircularProgress />
+  const HandleNoMatch = (props) => {
+    if (props.status == false) return props.msg;
+    else {
+      return <CircularProgress />;
     }
-  }
+  };
 
   console.log();
   return (
     <>
-      <Search />
-      {status == true && loading == false ? <RenderLive data={fixture} /> : <HandleNoMatch status={status} msg={msg}/>}
+      <Top />
+      <AlignCenter>
+        {status == true && loading == false ? (
+          <RenderLive data={fixture} />
+        ) : (
+          <HandleNoMatch status={status} msg={msg} />
+        )}
+      </AlignCenter>
     </>
   );
 }
@@ -223,6 +229,13 @@ const MatchInfo = styled.div`
 
   border: 2px solid black;
   border-radius: 10px;
+`;
+
+const AlignCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export default Main;
