@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import Top from "../../public/TopBar";
 
-const Login = () => {
+const Register = () => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
 
@@ -37,10 +37,10 @@ const Login = () => {
             <h1
               style={{
                 fontWeight: "bolder",
-                color: "#a8df65",
+                color: "#3da4ab",
               }}
             >
-              LOGIN
+              REGISTER
             </h1>
             <p>
               ID :{" "}
@@ -103,4 +103,4 @@ const AlignCenter = styled.div`
   height: 100%;
 `;
 
-export default Login;
+export default Register;

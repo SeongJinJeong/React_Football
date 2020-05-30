@@ -9,6 +9,7 @@ import Teams from "../../scripts/pages/Teams";
 import Search from "../../scripts/pages/Search";
 import Fixtures from "../../scripts/pages/Fixtures";
 import Login from "../../scripts/pages/login/Login";
+import Register from "../../scripts/pages/register/Register";
 
 const TeamRoute = () => {
   return (
@@ -27,6 +28,9 @@ const TeamRoute = () => {
       </Route>
       <Route path="/login" children={Login}>
         <Login />
+      </Route>
+      <Route path="/register" children={Login}>
+        <Register />
       </Route>
     </Switch>
   );
