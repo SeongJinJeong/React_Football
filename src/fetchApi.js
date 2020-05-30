@@ -95,6 +95,25 @@ const callApi = {
     if (response.status !== 200) throw Error(data.message);
     return data;
   },
+
+
+
+
+
+  // Call Own Server
+
+  _loginPost: async (data)=>{
+    const response = await fetch(`http://localhost:8080/loginPost`,{
+      headers:{
+        method : 'POST',
+        cors : 'cors',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: data
+      }
+    })
+  }
   promiseIt: function (any) {
     return new Promise((resolve, reject) => {
       if (any === true) {
