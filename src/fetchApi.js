@@ -113,7 +113,7 @@ const callApi = {
         body: data
       }
     })
-  }
+  },
   promiseIt: function (any) {
     return new Promise((resolve, reject) => {
       if (any === true) {

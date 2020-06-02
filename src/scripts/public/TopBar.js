@@ -13,9 +13,21 @@ import { Drawer as MainDrawer } from "./MainDrawer";
 const Top = (props) => {
   const [word, setWord] = useState("");
   const [toggleDrawer, setToggleDrawer] = useState(false);
+
   const _handleSearch = (event) => {
     event.persist();
     setWord(event.target.value);
+  };
+
+  const _handleSubmit = (event) =>{
+    event.preventDefault();
+    if (word.length <= 3) {
+      alert("Team name should be over 3 Spells!");
+    } else {
+      props.setKeyword(word);
+      setWord("");
+      history.push(`/search/${word}`);
+    }
   };
 
   const history = useHistory();
@@ -98,15 +110,7 @@ const Top = (props) => {
             }}
           ></input>
           <button
-            onClick={() => {
-              if (word.length <= 3) {
-                alert("Team name should be over 3 Spells!");
-              } else {
-                props.setKeyword(word);
-                setWord("");
-                history.push(`/search/${word}`);
-              }
-            }}
+            onClick={_handleSubmit}
             type="submit"
             style={{
               borderRadius: "20px",
@@ -142,7 +146,7 @@ const SideBox = styled.div`
   width: 20%;
 `;
 
-const SearchBox = styled.div`
+const SearchBox = styled.form`
   display: flex;
   justify-content: center;
 
