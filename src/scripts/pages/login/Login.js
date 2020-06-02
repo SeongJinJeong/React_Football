@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import Top from "../../public/TopBar";
+import callApi from "../../../fetchApi";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -25,6 +26,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(id, passwd);
+    const data = {
+      "id" : id,
+      "password" : passwd
+    };
+    callApi._loginPost(data).then(res=>console.log(res)).catch(err=>{console.log(err)});
     history.push("/");
   };
 

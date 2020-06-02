@@ -96,23 +96,25 @@ const callApi = {
     return data;
   },
 
-
-
-
-
   // Call Own Server
 
-  _loginPost: async (data)=>{
-    const response = await fetch(`http://localhost:8080/loginPost`,{
-      headers:{
-        method : 'POST',
-        cors : 'cors',
-        headers: {
-          'Content-Type' : 'application/json',
-        },
-        body: data
-      }
-    })
+  _loginPost: async (data) => {
+    const response = await fetch(`http://localhost:8080/loginPost`, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*"
+      },
+      body: data,
+    });
+    console.log(response);
+    const resData = response.json();
+    if (response.status !== 200) {
+      throw Error(resData.message);
+      console.log(response.status);
+    }
+    return resData;
   },
   promiseIt: function (any) {
     return new Promise((resolve, reject) => {

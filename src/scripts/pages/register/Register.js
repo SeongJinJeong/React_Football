@@ -7,8 +7,15 @@ import Top from "../../public/TopBar";
 const Register = () => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
+  const [nickname, setNickName] = useState("");
 
   const history = useHistory();
+
+  const handleNickName = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setNickName(value);
+  };
 
   const handleIdInput = (e) => {
     e.preventDefault();
@@ -24,7 +31,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(id, passwd);
+    console.log(id, passwd, nickname);
     history.push("/");
   };
 
@@ -42,6 +49,10 @@ const Register = () => {
             >
               REGISTER
             </h1>
+            <p>
+              NICKNAME :{" "}
+              <input type="text" placeholder="ID" onChange={handleNickName} />
+            </p>
             <p>
               ID :{" "}
               <input type="text" placeholder="ID" onChange={handleIdInput} />
