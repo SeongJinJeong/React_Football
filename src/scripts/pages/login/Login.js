@@ -27,10 +27,15 @@ const Login = () => {
     e.preventDefault();
     console.log(id, passwd);
     const data = {
-      "id" : id,
-      "password" : passwd
+      id: id,
+      passwd: passwd,
     };
-    callApi._loginPost(data).then(res=>console.log(res)).catch(err=>{console.log(err)});
+    callApi
+      ._loginPost(data)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
     history.push("/");
   };
 

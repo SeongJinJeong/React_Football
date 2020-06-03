@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const callApi = {
   _callH2h: async (teamId1, teamId2) => {
     const response = await fetch(
@@ -99,22 +101,22 @@ const callApi = {
   // Call Own Server
 
   _loginPost: async (data) => {
-    const response = await fetch(`http://localhost:8080/loginPost`, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin" : "*"
+    const response = await axios.post(
+      "http://localhost:8080/loginPost",
+      {
+        data,
       },
-      body: data,
-    });
-    console.log(response);
-    const resData = response.json();
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
     if (response.status !== 200) {
-      throw Error(resData.message);
       console.log(response.status);
     }
-    return resData;
+    return response;
   },
   promiseIt: function (any) {
     return new Promise((resolve, reject) => {
