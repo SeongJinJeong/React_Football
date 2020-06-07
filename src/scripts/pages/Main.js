@@ -18,9 +18,7 @@ function Main() {
     Call._callLive()
       .then((res) => {
         if (res.api.results !== 0) {
-          console.log(res);
           const liveData = Object.values(res.api.fixtures);
-          console.log(liveData);
           setFixture(liveData);
           setStatus(true);
           setLoading(false);
@@ -40,7 +38,6 @@ function Main() {
     }
   };
 
-  console.log();
   return (
     <>
       <Top />
@@ -61,17 +58,17 @@ const RenderLive = (props) => {
   const [onLoad, setOnLoad] = useState(false);
   const [msg, setMsg] = useState("");
 
-  console.log("In the RenderLive: ", data);
+  // console.log("In the RenderLive: ", data);
 
   useEffect(() => {
     if (data.length > 0) {
       data.map((value, index) => {
-        console.log(value);
+        // console.log(value);
         Call._callFixture(value.fixture_id)
           .then((res) => {
             setFixt((old) => [...old, res.api.fixtures[0]]);
             setOnLoad(true);
-            console.log(fixt);
+            // console.log(fixt);
           })
           .catch((err) => {
             console.log(err);
@@ -95,7 +92,7 @@ const RenderLive = (props) => {
 
 const RenderFixts = (props) => {
   const fixt = props.fixt;
-  console.log(fixt);
+  // console.log(fixt);
   return fixt.map((value, index) => {
     return (
       <>

@@ -102,7 +102,25 @@ const callApi = {
 
   _loginPost: async (data) => {
     const response = await axios.post(
-      "http://localhost:8080/loginPost",
+      "http://localhost:8080/login/loginPost",
+      {
+        data,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    if (response.status !== 200) {
+      console.log(response.status);
+    }
+    return response;
+  },
+  _registerPost: async (data) => {
+    const response = await axios.post(
+      "http://localhost:8080/register/registerPost",
       {
         data,
       },

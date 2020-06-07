@@ -32,7 +32,7 @@ const Login = () => {
     };
     callApi
       ._loginPost(data)
-      .then((res) => console.log(res))
+      .then((res) => console.log(res.data.msg))
       .catch((err) => {
         console.log(err);
       });

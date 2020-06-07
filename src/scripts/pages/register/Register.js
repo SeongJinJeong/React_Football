@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import Top from "../../public/TopBar";
+import callApi from "../../../fetchApi";
+const Call = callApi;
 
 const Register = () => {
   const [id, setId] = useState("");
@@ -32,6 +34,14 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(id, passwd, nickname);
+    const data = {
+      id,
+      password: passwd,
+      name: nickname,
+    };
+    Call._registerPost(data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
     history.push("/");
   };
 
