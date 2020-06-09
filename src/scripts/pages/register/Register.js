@@ -10,6 +10,7 @@ const Register = () => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
   const [nickname, setNickName] = useState("");
+  const [button, setButton] = useState(false);
 
   const history = useHistory();
 
@@ -34,15 +35,19 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(id, passwd, nickname);
-    const data = {
-      id,
-      password: passwd,
-      name: nickname,
-    };
-    Call._registerPost(data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    history.push("/");
+    if(id.length > 5 && passwd.length > 5 && nickname.length > 5){
+        const data = {
+        id,
+        password: passwd,
+        name: nickname,
+      };
+      Call._registerPost(data)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      history.push("/");
+    } else{
+      alert("Three of them must over 5 Spells")
+    }
   };
 
   return (
@@ -83,6 +88,7 @@ const Register = () => {
                 position: "relative",
                 bottom: "-30px",
               }}
+              disabled={button}
             />
           </Wrapper>
         </Div>
