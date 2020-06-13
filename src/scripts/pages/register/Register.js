@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
+import { IconContext } from "react-icons";
+import { MdCheck } from "react-icons/md";
+
 import Top from "../../public/TopBar";
 import callApi from "../../../fetchApi";
 const Call = callApi;
@@ -35,8 +38,8 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(id, passwd, nickname);
-    if(id.length > 5 && passwd.length > 5 && nickname.length > 5){
-        const data = {
+    if (id.length > 5 && passwd.length > 5 && nickname.length > 5) {
+      const data = {
         id,
         password: passwd,
         name: nickname,
@@ -45,8 +48,8 @@ const Register = () => {
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
       history.push("/");
-    } else{
-      alert("Three of them must over 5 Spells")
+    } else {
+      alert("Three of them must over 5 Spells");
     }
   };
 
@@ -56,40 +59,57 @@ const Register = () => {
       <AlignCenter>
         <Div>
           <Wrapper>
-            <h1
-              style={{
-                fontWeight: "bolder",
-                color: "#3da4ab",
-              }}
-            >
-              REGISTER
-            </h1>
-            <p>
-              NICKNAME :{" "}
-              <input type="text" placeholder="ID" onChange={handleNickName} />
-            </p>
-            <p>
-              ID :{" "}
-              <input type="text" placeholder="ID" onChange={handleIdInput} />
-            </p>
-            <p>
-              PASSWD :{" "}
+            <IconContext.Provider value={{ color: "blue", size: "1em" }}>
+              <h1
+                style={{
+                  fontWeight: "bolder",
+                  color: "#3da4ab",
+                }}
+              >
+                REGISTER
+              </h1>
+              <p>
+                NICKNAME :{" "}
+                <input type="text" placeholder="ID" onChange={handleNickName} />{" "}
+                {nickname.length >= 5 ? (
+                  <span>
+                    <MdCheck />
+                  </span>
+                ) : null}
+              </p>
+              <p>
+                ID :{" "}
+                <input type="text" placeholder="ID" onChange={handleIdInput} />
+                {id.length >= 5 ? (
+                  <span>
+                    <MdCheck />
+                  </span>
+                ) : null}
+              </p>
+              <p>
+                PASSWD :{" "}
+                <input
+                  type="password"
+                  placeholder="PASSWORD"
+                  onChange={handlePasswdInput}
+                />
+                {passwd.length >= 5 ? (
+                  <span>
+                    <MdCheck />
+                  </span>
+                ) : null}
+              </p>
               <input
-                type="password"
-                placeholder="PASSWORD"
-                onChange={handlePasswdInput}
+                type="submit"
+                placeholder="SUBMIT"
+                onClick={handleSubmit}
+                style={{
+                  position: "relative",
+                  bottom: "-30px",
+                }}
+                disabled={button}
               />
-            </p>
-            <input
-              type="submit"
-              placeholder="SUBMIT"
-              onClick={handleSubmit}
-              style={{
-                position: "relative",
-                bottom: "-30px",
-              }}
-              disabled={button}
-            />
+            </IconContext.Provider>
           </Wrapper>
         </Div>
       </AlignCenter>
