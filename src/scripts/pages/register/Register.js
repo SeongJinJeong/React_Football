@@ -107,7 +107,11 @@ const Register = () => {
                   position: "relative",
                   bottom: "-30px",
                 }}
-                disabled={button}
+                disabled={
+                  nickname.length >= 5 && id.length >= 5 && passwd.length >= 5
+                    ? false
+                    : true
+                }
               />
             </IconContext.Provider>
           </Wrapper>
