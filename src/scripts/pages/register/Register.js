@@ -44,9 +44,15 @@ const Register = () => {
       name: nickname,
     };
     Call._registerPost(data)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res.data.succeed);
+        if (res.data.succeed == true) {
+          history.push("/");
+        } else {
+          alert(res.data.msg);
+        }
+      })
       .catch((err) => console.log(err));
-    history.push("/");
   };
 
   return (
