@@ -32,11 +32,17 @@ const Login = () => {
     };
     callApi
       ._loginPost(data)
-      .then((res) => console.log(res.data.msg))
+      .then((res) => {
+        console.log(res.data.succeed);
+        if (res.data.succeed == true) {
+          history.push("/");
+        } else {
+          alert("There is no Account");
+        }
+      })
       .catch((err) => {
         console.log(err);
       });
-    history.push("/");
   };
 
   return (
