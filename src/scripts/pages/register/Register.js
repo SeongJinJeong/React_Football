@@ -38,19 +38,15 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(id, passwd, nickname);
-    if (id.length > 5 && passwd.length > 5 && nickname.length > 5) {
-      const data = {
-        id,
-        password: passwd,
-        name: nickname,
-      };
-      Call._registerPost(data)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      history.push("/");
-    } else {
-      alert("Three of them must over 5 Spells");
-    }
+    const data = {
+      id,
+      password: passwd,
+      name: nickname,
+    };
+    Call._registerPost(data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    history.push("/");
   };
 
   return (
