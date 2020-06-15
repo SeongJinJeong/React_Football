@@ -28,7 +28,7 @@ const Login = () => {
     console.log(id, passwd);
     const data = {
       id: id,
-      passwd: passwd,
+      password: passwd,
     };
     callApi
       ._loginPost(data)
@@ -37,7 +37,7 @@ const Login = () => {
         if (res.data.succeed == true) {
           history.push("/");
         } else {
-          alert("There is no Account");
+          alert(res.data.msg);
         }
       })
       .catch((err) => {
