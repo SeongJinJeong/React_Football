@@ -5,6 +5,9 @@ import { useHistory } from "react-router-dom";
 import Top from "../../public/TopBar";
 import callApi from "../../../fetchApi";
 
+import Cookies from "universal-cookie";
+const isLoginCookie = new Cookies();
+
 const Login = () => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
@@ -35,6 +38,8 @@ const Login = () => {
       .then((res) => {
         console.log(res.data.succeed);
         if (res.data.succeed == true) {
+          console.log(res.data.info);
+          isLoginCookie.set("isLogin", true, { path: "/" });
           history.push("/");
         } else {
           alert(res.data.msg);
