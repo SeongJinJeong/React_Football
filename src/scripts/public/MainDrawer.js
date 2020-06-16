@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { MdClose } from "react-icons/md";
 import { useHistory, Link } from "react-router-dom";
 
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
 function Drawer(props) {
+  const [isLogin, setIsLogin] = useState(false);
+
+  const history = useHistory();
+
   return (
     <>
       <div
@@ -28,26 +35,11 @@ function Drawer(props) {
           style={{
             position: "absolute",
             right: 0,
-            display:"flex",
-            flexDirection:"row"
+            display: "flex",
+            flexDirection: "row",
           }}
         >
-          <Anchor>
-            <Link
-              to={`/login`}
-              style={{ textDecoration: "none", color: "green" , fontSize:"15px" , marginRight: "5px" , fontWeight: 600}}
-            >
-              LOGIN
-            </Link>
-          </Anchor>
-          <Anchor>
-            <Link
-              to={`/register`}
-              style={{ textDecoration: "none", color: "blue" , fontSize:"15px" , marginRight: "5px" , fontWeight: 600}}
-            >
-              REGISTER
-            </Link>
-          </Anchor>
+          <LoginButton isLogin={cookies.get("isLogin")} />
         </div>
       </div>
       <Div>
@@ -78,6 +70,68 @@ function Drawer(props) {
     </>
   );
 }
+
+const LoginButton = (props) => {
+  // const isLogin = props.isLogin;
+
+  if (props.isLogin == true) {
+    return (
+      <>
+        <Anchor>
+          <button
+            style={{
+              textDecoration: "none",
+              color: "green",
+              fontSize: "15px",
+              marginRight: "5px",
+              fontWeight: 600,
+            }}
+            onClick={() => {
+              cookies.set("isLogin", false, { path: "/" });
+              // console.log(isLogin);
+              // window.location.reload(false);
+            }}
+          >
+            LOGOUT
+          </button>
+        </Anchor>{" "}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Anchor>
+          <Link
+            to={`/login`}
+            style={{
+              textDecoration: "none",
+              color: "green",
+              fontSize: "15px",
+              marginRight: "5px",
+              fontWeight: 600,
+            }}
+          >
+            LOGIN
+          </Link>
+        </Anchor>
+        <Anchor>
+          <Link
+            to={`/register`}
+            style={{
+              textDecoration: "none",
+              color: "blue",
+              fontSize: "15px",
+              marginRight: "5px",
+              fontWeight: 600,
+            }}
+          >
+            REGISTER
+          </Link>
+        </Anchor>{" "}
+      </>
+    );
+  }
+};
 
 const Div = styled.div`
   width: 100%;

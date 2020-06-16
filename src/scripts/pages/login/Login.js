@@ -6,7 +6,7 @@ import Top from "../../public/TopBar";
 import callApi from "../../../fetchApi";
 
 import Cookies from "universal-cookie";
-const isLoginCookie = new Cookies();
+const cookies = new Cookies();
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -39,7 +39,7 @@ const Login = () => {
         console.log(res.data.succeed);
         if (res.data.succeed == true) {
           console.log(res.data.info);
-          isLoginCookie.set("isLogin", true, { path: "/" });
+          cookies.set("isLogin", true, { path: "/" });
           history.push("/");
         } else {
           alert(res.data.msg);
