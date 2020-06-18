@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
+import { connect } from "react-redux";
+import { setLoginTrue } from "../../../store/modules/CheckLogin";
+
 import Top from "../../public/TopBar";
 import callApi from "../../../fetchApi";
 
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-const Login = () => {
+const Login = ({ setIsLoginCookieTrue }) => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
 
@@ -40,6 +43,7 @@ const Login = () => {
         if (res.data.succeed == true) {
           console.log(res.data.info);
           cookies.set("isLogin", true, { path: "/" });
+          setIsLoginCookieTrue();
           history.push("/");
         } else {
           alert(res.data.msg);
@@ -49,6 +53,8 @@ const Login = () => {
         console.log(err);
       });
   };
+
+  // console.log(setIsLoginCookieFalse);
 
   return (
     <>
@@ -125,4 +131,11 @@ const AlignCenter = styled.div`
   height: 100%;
 `;
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  console.log(dispatch);
+  return {
+    setIsLoginCookieTrue: () => dispatch(setLoginTrue()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);

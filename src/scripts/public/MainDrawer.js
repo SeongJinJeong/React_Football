@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { MdClose } from "react-icons/md";
 import { useHistory, Link } from "react-router-dom";
 
+import { connect } from "react-redux";
+
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-function Drawer(props) {
+function MainDrawer(props) {
   const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    setIsLogin(cookies.get("isLogin"), { doNotParse: false });
+  }, [cookies.get("isLogin")]);
 
   const history = useHistory();
 
+  console.log(isLogin);
   return (
     <>
       <div
@@ -39,7 +45,59 @@ function Drawer(props) {
             flexDirection: "row",
           }}
         >
-          <LoginButton isLogin={cookies.get("isLogin")} />
+          {isLogin == "true" ? (
+            <>
+              <Anchor>
+                <button
+                  style={{
+                    textDecoration: "none",
+                    color: "green",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                    fontWeight: 600,
+                  }}
+                  onClick={() => {
+                    cookies.set("isLogin", false, { path: "/" });
+                    console.log(isLogin);
+                    window.location.reload(false);
+                  }}
+                >
+                  LOGOUT
+                </button>
+              </Anchor>
+            </>
+          ) : (
+            <>
+              <Anchor>
+                <Link
+                  to={`/login`}
+                  style={{
+                    textDecoration: "none",
+                    color: "green",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                    fontWeight: 600,
+                  }}
+                >
+                  LOGIN
+                </Link>
+              </Anchor>
+              <Anchor>
+                <Link
+                  to={`/register`}
+                  style={{
+                    textDecoration: "none",
+                    color: "blue",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                    fontWeight: 600,
+                  }}
+                >
+                  REGISTER
+                </Link>
+              </Anchor>
+            </>
+          )}
         </div>
       </div>
       <Div>
@@ -72,64 +130,12 @@ function Drawer(props) {
 }
 
 const LoginButton = (props) => {
-  // const isLogin = props.isLogin;
+  const isLogin = props.isLogin;
 
-  if (props.isLogin == true) {
-    return (
-      <>
-        <Anchor>
-          <button
-            style={{
-              textDecoration: "none",
-              color: "green",
-              fontSize: "15px",
-              marginRight: "5px",
-              fontWeight: 600,
-            }}
-            onClick={() => {
-              cookies.set("isLogin", false, { path: "/" });
-              // console.log(isLogin);
-              // window.location.reload(false);
-            }}
-          >
-            LOGOUT
-          </button>
-        </Anchor>{" "}
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Anchor>
-          <Link
-            to={`/login`}
-            style={{
-              textDecoration: "none",
-              color: "green",
-              fontSize: "15px",
-              marginRight: "5px",
-              fontWeight: 600,
-            }}
-          >
-            LOGIN
-          </Link>
-        </Anchor>
-        <Anchor>
-          <Link
-            to={`/register`}
-            style={{
-              textDecoration: "none",
-              color: "blue",
-              fontSize: "15px",
-              marginRight: "5px",
-              fontWeight: 600,
-            }}
-          >
-            REGISTER
-          </Link>
-        </Anchor>{" "}
-      </>
-    );
+  if (isLogin === true) {
+    return <></>;
+  } else if (isLogin === false) {
+    return <></>;
   }
 };
 
@@ -160,4 +166,11 @@ const Anchor = styled.p`
   }
 `;
 
-export { Drawer };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    LoginStatus: state.LoginStatus.status,
+    ...ownProps,
+  };
+};
+
+export default connect(mapStateToProps, null)(MainDrawer);

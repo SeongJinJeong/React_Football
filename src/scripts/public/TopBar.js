@@ -8,18 +8,20 @@ import { IconContext } from "react-icons";
 import { MdMenu } from "react-icons/md";
 import { IoIosFootball } from "react-icons/io";
 
-import { Drawer as MainDrawer } from "./MainDrawer";
+import MainDrawer from "./MainDrawer";
 
 const Top = (props) => {
   const [word, setWord] = useState("");
   const [toggleDrawer, setToggleDrawer] = useState(false);
+
+  console.log(props);
 
   const _handleSearch = (event) => {
     event.persist();
     setWord(event.target.value);
   };
 
-  const _handleSubmit = (event) =>{
+  const _handleSubmit = (event) => {
     event.preventDefault();
     if (word.length <= 3) {
       alert("Team name should be over 3 Spells!");
@@ -39,7 +41,7 @@ const Top = (props) => {
           value={{
             color: "blue",
             size: "3em",
-            style: { marginLeft: "5px", minWidth:"3em" },
+            style: { marginLeft: "5px", minWidth: "3em" },
           }}
         >
           <MdMenu
@@ -104,9 +106,9 @@ const Top = (props) => {
             onChange={_handleSearch}
             value={word}
             style={{
-              width:"100%",
-              maxWidth:"200px",
-              minWidth:"80px"
+              width: "100%",
+              maxWidth: "200px",
+              minWidth: "80px",
             }}
           ></input>
           <button
@@ -120,7 +122,7 @@ const Top = (props) => {
           >
             Search
           </button>
-        <SideMenu toggleDrawer={toggleDrawer} />
+          <SideMenu toggleDrawer={toggleDrawer} />
         </SearchBox>
       </SideBox>
     </Div>
@@ -157,6 +159,8 @@ const mapStateToProps = (state) => {
   return { word: state.Search.word };
 };
 
-const mapDispatchToProps = { setKeyword };
+const mapDispatchToProps = (dispatch) => {
+  return { setKeyword };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Top);

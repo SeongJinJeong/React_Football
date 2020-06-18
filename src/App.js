@@ -2,14 +2,25 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import TeamRoute from "./routes/index";
 import { BrowserRouter as Router } from "react-router-dom";
-import callApi from "./fetchApi";
 
-import Moment from "react-moment";
-import "moment-timezone";
+import { connect } from "react-redux";
+import { setLoginTrue, setLoginFalse } from "./store/modules/CheckLogin";
 
-const Call = callApi;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    if (cookies.get("isLogin") == true) {
+      props.AsyncCookiesTrue();
+      console.log("WHAT THE FUCK");
+    } else {
+      props.AsyncCookiesFalse();
+    }
+    console.log(props);
+  }, [cookies.get("isLogin")]);
+
+  // console.log(props.LoginStatus);
   return (
     <>
       <Router>
@@ -29,7 +40,19 @@ const Div = styled.div`
   flex-wrap: nowrap;
 
   height: 100%;
-  width : 100%;
+  width: 100%;
 `;
 
-export default App;
+const mapStateToProps = (state) => {
+  return { LoginStatus: state.LoginStatus.status };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    AsyncCookiesTrue: () => dispatch(setLoginTrue()),
+    AsyncCookiesFalse: () => dispatch(setLoginFalse()),
+    ...ownProps,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

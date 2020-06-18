@@ -3,6 +3,8 @@ import Moment from "react-moment";
 import { CircularProgress } from "@material-ui/core";
 import styled from "styled-components";
 
+import { connect } from "react-redux";
+
 import Top from "../public/TopBar";
 import callApi from "../../fetchApi";
 
@@ -235,4 +237,12 @@ const AlignCenter = styled.div`
   flex-direction: column;
 `;
 
-export default Main;
+const mapStateToProps = (state, ownProps) => {
+  console.log(state.LoginStatus.status);
+  return {
+    ...ownProps,
+    LoginStatus: state.LoginStatus.status,
+  };
+};
+
+export default connect(mapStateToProps, null)(Main);
