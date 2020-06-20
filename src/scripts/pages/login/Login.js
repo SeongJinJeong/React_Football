@@ -43,6 +43,7 @@ const Login = ({ setIsLoginCookieTrue }) => {
         if (res.data.succeed == true) {
           console.log(res.data.info);
           cookies.set("isLogin", true, { path: "/" });
+          cookies.set("userId", res.data.info.No, { path: "/" });
           setIsLoginCookieTrue();
           history.push("/");
         } else {

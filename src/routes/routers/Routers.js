@@ -10,8 +10,9 @@ import Search from "../../scripts/pages/Search";
 import Fixtures from "../../scripts/pages/Fixtures";
 import Login from "../../scripts/pages/login/Login";
 import Register from "../../scripts/pages/register/Register";
+import MyPage from "../../scripts/pages/MyPage";
 
-const TeamRoute = () => {
+const Routers = () => {
   return (
     <Switch>
       <Route path="/" exact={true}>
@@ -32,8 +33,11 @@ const TeamRoute = () => {
       <Route path="/register" children={Login}>
         <Register />
       </Route>
+      <Route path="/mypage" children={MyPage}>
+        <MyPage />
+      </Route>
     </Switch>
   );
 };
 
-export default TeamRoute;
+export default Routers;

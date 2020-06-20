@@ -1,3 +1,3 @@
-import TeamRoute from "./routers/TeamRoute";
+import Routers from "./routers/Routers";
 
-export default TeamRoute;
+export default Routers;

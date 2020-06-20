@@ -98,7 +98,8 @@ const callApi = {
     return data;
   },
 
-  // Call Own Server
+  //---------------------  Call Own Server  --------------------------------------
+  //------------------------------------------------------------------------------
 
   _loginPost: async (data) => {
     const response = await axios.post(
@@ -136,6 +137,25 @@ const callApi = {
     }
     return response;
   },
+  _getUserInfo: async (No) => {
+    const response = await axios.post(
+      "http://localhost:8080/user/info",
+      {
+        no: No,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    if (response.status !== 200) {
+      console.log(response.status);
+    }
+    return response;
+  },
+
   promiseIt: function (any) {
     return new Promise((resolve, reject) => {
       if (any === true) {

@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-function MainDrawer(props) {
+const MainDrawer = (props) => {
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     setIsLogin(cookies.get("isLogin"), { doNotParse: false });
@@ -48,7 +48,21 @@ function MainDrawer(props) {
           {isLogin == "true" ? (
             <>
               <Anchor>
-                <button
+                <Link
+                  to={`/myPage`}
+                  style={{
+                    textDecoration: "none",
+                    color: "blue",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                    fontWeight: 600,
+                  }}
+                >
+                  MYPAGE
+                </Link>
+              </Anchor>
+              <Anchor>
+                <span
                   style={{
                     textDecoration: "none",
                     color: "green",
@@ -59,11 +73,16 @@ function MainDrawer(props) {
                   onClick={() => {
                     cookies.set("isLogin", false, { path: "/" });
                     console.log(isLogin);
+                    cookies.remove("userId");
+                    history.push("/");
                     window.location.reload(false);
+                  }}
+                  onMouseOver={(event) => {
+                    event.target.style.cursor = "pointer";
                   }}
                 >
                   LOGOUT
-                </button>
+                </span>
               </Anchor>
             </>
           ) : (
@@ -127,7 +146,7 @@ function MainDrawer(props) {
       </Div>
     </>
   );
-}
+};
 
 const LoginButton = (props) => {
   const isLogin = props.isLogin;
@@ -141,6 +160,7 @@ const LoginButton = (props) => {
 
 const Div = styled.div`
   width: 100%;
+  height: 100%;
 
   display: flex;
   justify-content: center;

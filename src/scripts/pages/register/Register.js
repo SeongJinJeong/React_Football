@@ -123,6 +123,15 @@ const Register = () => {
   );
 };
 
+const AlignCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100%;
+`;
+
 const Div = styled.div`
   width: 100%;
   height: 100%;
@@ -145,15 +154,6 @@ const Wrapper = styled.form`
 
   border: 3px solid black;
   border-radius: 30px;
-`;
-
-const AlignCenter = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  height: 100%;
 `;
 
 export default Register;
