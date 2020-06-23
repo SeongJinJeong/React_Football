@@ -9,15 +9,14 @@ import Top from "../public/TopBar";
 
 const cookies = new Cookies();
 
-const Chips = [
-  { label: "EPL", color: "primary" },
-  { label: "La Liga", color: "secondary" },
-  { label: "K-League", color: "default" },
-];
-
 const MyPage = (props) => {
   const history = useHistory();
   const [data, setData] = useState({});
+  const [chips, setChips] = useState([
+    { label: "EPL", color: "primary" },
+    { label: "La Liga", color: "secondary" },
+    { label: "K-League", color: "default" },
+  ]);
   useEffect(() => {
     callApi._getUserInfo(cookies.get("userId")).then((res) => {
       console.log(res);
@@ -36,6 +35,10 @@ const MyPage = (props) => {
     });
   }, []);
 
+  const handleDelete = (chipToDelete) => () => {
+    setChips((chips) => chips.filter((chip) => chip.label !== chipToDelete));
+  };
+
   return (
     <>
       <Top />
@@ -46,9 +49,22 @@ const MyPage = (props) => {
             <Texts>Name : {data.name}</Texts>
             <Texts>ID : {data.id}</Texts>
             <br />
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              {Chips.map((value, index) => {
-                return <Chip label={value.label} color={value.color} />;
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              {chips.map((value, index) => {
+                return (
+                  <Chip
+                    label={value.label}
+                    color={value.color}
+                    onDelete={handleDelete(value.label)}
+                  />
+                );
               })}
             </div>
           </Wrapper>
