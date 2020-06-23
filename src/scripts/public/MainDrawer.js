@@ -35,6 +35,9 @@ const MainDrawer = (props) => {
             onClick={() => {
               props.setToggleDrawer(false);
             }}
+            onMouseOver={(e) => {
+              e.target.style.cursor = "pointer";
+            }}
           />
         </IconContext.Provider>
         <div

@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router-dom";
+import Chip from "@material-ui/core/Chip";
 
 import callApi from "../../fetchApi";
 import Top from "../public/TopBar";
 
 const cookies = new Cookies();
+
+const Chips = [
+  { label: "EPL", color: "primary" },
+  { label: "La Liga", color: "secondary" },
+  { label: "K-League", color: "default" },
+];
 
 const MyPage = (props) => {
   const history = useHistory();
@@ -35,9 +42,15 @@ const MyPage = (props) => {
       <AlignCenter>
         <Div>
           <Wrapper>
-            <Title>No.{data.no} User</Title>
+            <Title style={{ color: "#b6eb7a" }}>MY PAGE</Title>
             <Texts>Name : {data.name}</Texts>
             <Texts>ID : {data.id}</Texts>
+            <br />
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {Chips.map((value, index) => {
+                return <Chip label={value.label} color={value.color} />;
+              })}
+            </div>
           </Wrapper>
         </Div>
       </AlignCenter>
