@@ -5,6 +5,9 @@ import styled from "styled-components";
 
 import { connect } from "react-redux";
 
+import { IconContext } from "react-icons";
+import { MdRefresh } from "react-icons/md";
+
 import Top from "../public/TopBar";
 import callApi from "../../fetchApi";
 
@@ -15,6 +18,8 @@ function Main() {
   const [status, setStatus] = useState(false);
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState("");
+  const [refresh, setRefresh] = useState(false);
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     Call._callLive()
@@ -31,7 +36,11 @@ function Main() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+
+    const d = new Date();
+    const dString = d.toString();
+    setDate(dString);
+  }, [refresh]);
 
   const HandleNoMatch = (props) => {
     if (props.status == false && props.msg.length < 1)
@@ -46,7 +55,26 @@ function Main() {
       <Top />
       <AlignCenter>
         {status == true && loading == false ? (
-          <RenderLive data={fixture} />
+          <>
+            <h1>
+              LIVE{" "}
+              <IconContext.Provider value={{ size: "0.5em", color: "blue" }}>
+                <MdRefresh
+                  onClick={() => {
+                    setFixture([]);
+                    setStatus(false);
+                    setLoading(true);
+                    setMsg("");
+                    setRefresh(!refresh);
+                    setDate("");
+                    console.log(refresh);
+                  }}
+                />
+              </IconContext.Provider>
+            </h1>
+
+            <RenderLive data={fixture} refresh={refresh} date={date} />
+          </>
         ) : (
           <HandleNoMatch status={status} msg={msg} />
         )}
@@ -87,8 +115,21 @@ const RenderLive = (props) => {
 
   return (
     <>
-      <h1>Live</h1>
-      {onLoad ? <RenderFixts fixt={fixt} /> : msg}
+      {onLoad ? (
+        <>
+          <RenderFixts fixt={fixt} />{" "}
+          <p>
+            Updated Time :{" "}
+            <Moment
+              interval={0}
+              date={props.date}
+              format="YYYY/MM/DD HH:mm"
+            ></Moment>
+          </p>{" "}
+        </>
+      ) : (
+        msg
+      )}
     </>
   );
 };
