@@ -60,14 +60,16 @@ function Main() {
               LIVE{" "}
               <IconContext.Provider value={{ size: "0.5em", color: "blue" }}>
                 <MdRefresh
-                  onClick={() => {
+                  onClick={(e) => {
                     setFixture([]);
                     setStatus(false);
                     setLoading(true);
                     setMsg("");
                     setRefresh(!refresh);
                     setDate("");
-                    console.log(refresh);
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.cursor = "pointer";
                   }}
                 />
               </IconContext.Provider>
