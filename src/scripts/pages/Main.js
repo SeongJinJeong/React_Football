@@ -14,7 +14,7 @@ function Main() {
   const [fixture, setFixture] = useState([]);
   const [status, setStatus] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [msg, setMsg] = useState("Loading");
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     Call._callLive()
@@ -34,9 +34,10 @@ function Main() {
   }, []);
 
   const HandleNoMatch = (props) => {
-    if (props.status == false) return props.msg;
-    else {
+    if (props.status == false && props.msg.length < 1)
       return <CircularProgress />;
+    else {
+      return props.msg;
     }
   };
 
