@@ -29,19 +29,17 @@ const MyPage = (props) => {
           no: res.data.data.no,
           id: res.data.data.id,
           name: res.data.data.name,
+          // tags: res.data.data.tags,
         });
-        // setChips(res.data.data.tags.split(","));
-        const d = res.data.data.tags;
-        const dArr = d.split(",");
-        console.log(dArr);
-        setChips(dArr);
+        setChips(res.data.data.tags.split(","));
         setLoading(false);
       }
     });
   }, []);
 
-  const handleDelete = (chipToDelete) => {
-    setChips((chips) => chips.filter((chip) => chip !== chipToDelete));
+  const handleDelete = () => {
+    // console.log(chipToDelete.target);
+    setChips([]);
   };
 
   return (
@@ -65,15 +63,19 @@ const MyPage = (props) => {
                 }}
               >
                 {" "}
-                {() => {
-                  console.log(chips);
-                }}
                 {chips.map((value, index) => {
+                  console.log(value);
                   return (
                     <Chip
                       label={value}
                       color="secondary"
-                      onDelete={handleDelete(value)}
+                      onDelete={() => {
+                        setChips((last) =>
+                          last.filter((chip) => {
+                            return chip !== value;
+                          })
+                        );
+                      }}
                     />
                   );
                 })}
